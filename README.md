@@ -1,3 +1,14 @@
+# PyJS DJ Skeletor
+
+In addition to DJ Skeletor, it has support for pyjs (it's simple hello-world pyjs application). 
+
+USAGE: 
+    make pyjs-prod
+or:
+    make pyjs-debug 
+
+will compile pyjs files into staticfiles/output 
+
 # DJ Skeletor
 
 DJ Skeletor is a skeleton Django project handy for quick bootstrapping of new

@@ -1,6 +1,9 @@
 MANAGE=python manage.py
 PROJECT_NAME=project
 SETTINGS=--settings=$(PROJECT_NAME).settings.test
+PYJSBUILD=~/git/pyjs/bin/pyjsbuild
+PYJSPATH=~/workspace2/monthdelta:~/ve/pyjamas/local/lib/python2.7/site-packages
+
 
 FLAKE8_OPTS=--exclude=.git,migrations --max-complexity=10
 
@@ -17,6 +20,7 @@ coverage:
 		--with-xcoverage --with-xunit --cover-html  --cover-erase
 
 clean:
+	rm -rf $(PROJECT_NAME)/staticfiles/output
 	rm -rf .coverage cover nosetests.xml coverage.xml
 	rm -rf $(PROJECT_NAME)/static/CACHE
 	find . -name '*.pyc' -exec rm '{}' ';'
@@ -59,3 +63,12 @@ update: ensure_virtualenv
 	$(MANAGE) syncdb
 	$(MANAGE) migrate
 	$(MANAGE) collectstatic --noinput
+
+pyjs-prod:
+	cd $(PROJECT_NAME)/pyjs && $(PYJSBUILD) --disable-compile-inplace --enable-signatures -o ../staticfiles/output main
+
+
+pyjs-debug:
+	cd $(PROJECT_NAME)/pyjs && $(PYJSBUILD) -d  --disable-compile-inplace --enable-signatures -o ../staticfiles/output main
+
+
